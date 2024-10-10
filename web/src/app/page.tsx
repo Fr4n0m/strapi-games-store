@@ -7,16 +7,14 @@ export const metadata = {
 	description: 'Strapi - Next.js',
 };
 
-export default function Home() {
+const Home = () => {
 	return (
 		<>
-			<Hero
-				title='Bienvenido a la Tienda'
-				description='Descubre los últimos lanzamientos y las mejores ofertas.'
-				buttonText='Juegos'
-			/>
+			<Hero />
 			<Categories />
 			<Footer />
 		</>
 	);
-}
+};
+
+export default Home;

@@ -1,14 +1,15 @@
 import React from 'react';
 import Carousel from '../Carousel';
 import './button.css';
+import { getHomeInfo } from '@/lib/get-home-info';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
-interface HeroProps {
-	title: string;
-	description: string;
-	buttonText: string;
-}
+const Hero = async () => {
+	const {
+		title = 'Bienvenido a la Tienda',
+		description = 'Descubre los últimos lanzamientos y las mejores ofertas.',
+	} = await getHomeInfo();
 
-const Hero: React.FC<HeroProps> = ({ title, description, buttonText }) => {
 	return (
 		<div className='relative'>
 			<div
@@ -22,12 +23,12 @@ const Hero: React.FC<HeroProps> = ({ title, description, buttonText }) => {
 						<h1 className='text-4xl md:text-6xl font-bold mb-4 font-archivo-black'>
 							{title}
 						</h1>
-						<p className='text-md md:text-lg px-10 md:px-0 mb-6'>
-							{description}
-						</p>
+						<div className='text-md md:text-lg px-10 md:px-0 mb-6'>
+							<BlocksRenderer content={description} />
+						</div>
 						<a href='/#categories'>
 							<button className='font-archivo-black uppercase'>
-								{buttonText}
+								Juegos
 								<div id='clip'>
 									<div id='leftTop' className='corner'></div>
 									<div

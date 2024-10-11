@@ -1,5 +1,6 @@
 import { getCategories } from '@/lib/get-categories';
 import { defaultCategories } from '@/mock/categories';
+import Link from 'next/link';
 
 export interface Category {
 	slug: number;
@@ -23,20 +24,26 @@ const Categories = async () => {
 			</h2>
 			<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4'>
 				{categories.map((category: Category) => (
-					<div key={category.slug} className='max-w-xs'>
-						<div className='relative rounded-lg overflow-hidden shadow-lg hover:scale-105 cursor-pointer transition-all group'>
-							<img
-								src={category.image}
-								alt={category.name}
-								className='w-full h-48 object-cover'
-							/>
-							<div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-all group-hover:bg-transparent'>
-								<span className='text-white shadow-black drop-shadow-lg text-xl font-semibold group-hover:text-3xl transition-all'>
-									{category.name}
-								</span>
+					<Link
+						key={category.slug}
+						href={`/categories/${category.name}`}
+						passHref
+					>
+						<div className='max-w-xs'>
+							<div className='relative rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-all cursor-pointer group'>
+								<img
+									src={category.image}
+									alt={category.name}
+									className='w-full h-48 object-cover'
+								/>
+								<div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-all group-hover:bg-transparent'>
+									<span className='text-white shadow-black drop-shadow-lg text-xl font-semibold group-hover:text-3xl transition-all'>
+										{category.name}
+									</span>
+								</div>
 							</div>
 						</div>
-					</div>
+					</Link>
 				))}
 			</div>
 		</div>

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "game",
     "pluralName": "games",
-    "displayName": "Game"
+    "displayName": "Game",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -50,6 +51,12 @@
       },
       "type": "uid",
       "required": true
+    },
+    "game_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game-category.game-category",
+      "inversedBy": "games"
     }
   }
 }

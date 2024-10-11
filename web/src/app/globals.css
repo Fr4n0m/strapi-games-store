@@ -29,3 +29,13 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+  /* Safari y Chrome */
+}

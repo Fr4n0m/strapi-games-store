@@ -585,6 +585,7 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
     singularName: 'game';
     pluralName: 'games';
     displayName: 'Game';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -623,6 +624,10 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    game_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::game-category.game-category'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -674,6 +679,7 @@ export interface ApiGameCategoryGameCategory
           localized: true;
         };
       }>;
+    games: Schema.Attribute.Relation<'oneToMany', 'api::game.game'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

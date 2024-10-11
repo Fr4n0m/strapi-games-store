@@ -11,8 +11,8 @@ export function getCategories() {
 			image: category.image,
 		}));
 
-		console.log(formattedCategories);
-
+		/* 		console.log(formattedCategories);
+		 */
 		return formattedCategories;
 	});
 }

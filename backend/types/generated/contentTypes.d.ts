@@ -533,7 +533,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'title'>;
     cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
-    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     blocks: Schema.Attribute.DynamicZone<
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
     >;
@@ -580,22 +579,45 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
+export interface ApiGameCategoryGameCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'game_categories';
   info: {
-    singularName: 'category';
-    pluralName: 'categories';
-    displayName: 'Category';
-    description: 'Organize your content into categories';
+    singularName: 'game-category';
+    pluralName: 'game-categories';
+    displayName: 'GameCategory';
+    description: '';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
   };
   attributes: {
-    name: Schema.Attribute.String;
-    slug: Schema.Attribute.UID;
-    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
-    description: Schema.Attribute.Text;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -606,7 +628,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::category.category'
+      'api::game-category.game-category'
     >;
   };
 }
@@ -1062,7 +1084,7 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
-      'api::category.category': ApiCategoryCategory;
+      'api::game-category.game-category': ApiGameCategoryGameCategory;
       'api::global.global': ApiGlobalGlobal;
       'api::home.home': ApiHomeHome;
       'admin::permission': AdminPermission;

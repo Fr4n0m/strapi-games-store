@@ -8,6 +8,7 @@ module.exports = {
 		'plugin:react/recommended',
 		'plugin:react/jsx-runtime',
 		'eslint-config-prettier',
+		'next/core-web-vitals',
 	],
 	overrides: [
 		{

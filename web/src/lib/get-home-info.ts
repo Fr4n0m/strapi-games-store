@@ -1,10 +1,10 @@
-import { query } from './strapi';
+/* import { query } from './strapi';
 
 export function getHomeInfo() {
 	return query('Home').then(res => {
 		return res.data;
 	});
-}
+} */ //Comment for make it run the vercel demo but if you want to use strapi uncomment this
 
 //? Para sacar una imagen si es necesario
 /* 

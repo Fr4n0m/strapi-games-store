@@ -1,6 +1,6 @@
 import { query } from './strapi';
 import { Category } from '@/components/Categories';
-
+/* 
 export function getCategories() {
 	return query('game-categories').then(res => {
 		const data = res.data;
@@ -11,11 +11,10 @@ export function getCategories() {
 			image: category.image,
 		}));
 
-		/* 		console.log(formattedCategories);
-		 */
 		return formattedCategories;
 	});
 }
+*/ //Comment for make it run the vercel demo but if you want to use strapi uncomment this
 
 export function getCategoriesComponentInfo() {
 	return query('Category').then(res => {

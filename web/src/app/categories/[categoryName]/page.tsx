@@ -6,6 +6,9 @@ import { getGamesByCategory } from '@/lib/get-games-by-category';
 import { defaultGames, Game } from '@/mock/games';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import Loading from '@/components/Loading';
+
+const PAGE_SIZE = 1;
 
 const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
 	const [games, setGames] = useState<Game[]>([]);
@@ -39,7 +42,7 @@ const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
 		<div className='flex flex-col min-h-screen'>
 			<Link
 				href={'/'}
-				className='relative w-fit flex justify-center items-center gap-2 left-20 top-10 text-md font-bold text-white hover:underline group'
+				className='relative w-fit flex justify-center items-center gap-2 left-10 md:left-20 top-10 text-md font-bold text-white hover:underline group'
 			>
 				<div className='size-5 group-hover:-translate-x-1 transition-all'>
 					<svg
@@ -60,12 +63,12 @@ const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
 				<p>Volver a Inicio</p>
 			</Link>
 
-			<div className='flex-grow p-20'>
+			<div className='flex-grow p-10 mt-10 md:p-20'>
 				<h2 className='text-3xl font-bold mb-6 font-archivo-black'>
 					{categoryName}
 				</h2>
 				{loading ? (
-					<p>Cargando juegos...</p>
+					<Loading />
 				) : error ? (
 					<p className='text-red-500'>{error}</p>
 				) : (

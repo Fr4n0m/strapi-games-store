@@ -20,7 +20,7 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
 				className='w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300'
 			/>
 			<div className='p-4'>
-				<h3 className='text-2xl font-bold text-white mt-5'>
+				<h3 className='text-2xl font-bold text-white mt-2'>
 					{game.name}
 				</h3>
 			</div>

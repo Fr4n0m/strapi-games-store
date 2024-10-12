@@ -2,7 +2,6 @@ import { query } from './strapi';
 
 export function getHomeInfo() {
 	return query('Home').then(res => {
-		console.log(res.data);
 		return res.data;
 	});
 }

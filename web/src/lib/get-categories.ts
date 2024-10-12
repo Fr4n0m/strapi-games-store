@@ -17,6 +17,12 @@ export function getCategories() {
 	});
 }
 
+export function getCategoriesComponentInfo() {
+	return query('Category').then(res => {
+		return res.data;
+	});
+}
+
 /*
     export function getCategories() {
         return query("game-categories?fields[0]=slug&fields[1]=description&populate[image][fields][0]=url").then((res) => {

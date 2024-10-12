@@ -24,7 +24,6 @@ export function getGames() {
 				category: game.category,
 			}));
 
-			console.log(formattedGames);
 			return formattedGames;
 		})
 		.catch(error => {
@@ -32,3 +31,5 @@ export function getGames() {
 			return [];
 		});
 }
+
+getGames();

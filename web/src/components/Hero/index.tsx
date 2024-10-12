@@ -8,6 +8,7 @@ const Hero = async () => {
 	const {
 		title = 'Bienvenido a la Tienda',
 		description = 'Descubre los últimos lanzamientos y las mejores ofertas.',
+		buttonText = 'Juegos',
 	} = await getHomeInfo();
 
 	return (
@@ -28,7 +29,7 @@ const Hero = async () => {
 						</div>
 						<a href='/#categories'>
 							<button className='font-archivo-black uppercase'>
-								Juegos
+								{buttonText}
 								<div id='clip'>
 									<div id='leftTop' className='corner'></div>
 									<div

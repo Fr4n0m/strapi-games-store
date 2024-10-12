@@ -1,4 +1,7 @@
-import { getCategories } from '@/lib/get-categories';
+import {
+	getCategories,
+	getCategoriesComponentInfo,
+} from '@/lib/get-categories';
 import { defaultCategories } from '@/mock/categories';
 import Link from 'next/link';
 
@@ -11,6 +14,8 @@ export interface Category {
 const Categories = async () => {
 	const strapiCategories = await getCategories();
 
+	const { title } = await getCategoriesComponentInfo();
+
 	const categories =
 		strapiCategories.length > 0 ? strapiCategories : defaultCategories;
 
@@ -20,7 +25,7 @@ const Categories = async () => {
 			className='px-10 py-24 flex flex-col justify-center items-center'
 		>
 			<h2 className='text-5xl font-bold text-center mb-20 font-archivo-black'>
-				Categorías
+				{title}
 			</h2>
 			<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4'>
 				{categories.map((category: Category) => (

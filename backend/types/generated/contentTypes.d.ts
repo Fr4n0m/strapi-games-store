@@ -579,6 +579,44 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCategoryCategory extends Struct.SingleTypeSchema {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
+  };
+}
+
 export interface ApiGameGame extends Struct.CollectionTypeSchema {
   collectionName: 'games';
   info: {
@@ -729,6 +767,7 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
     singularName: 'home';
     pluralName: 'homes';
     displayName: 'Home';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -750,6 +789,13 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
         minLength: 5;
       }>;
     description: Schema.Attribute.Blocks &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    buttonText: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1146,6 +1192,7 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
+      'api::category.category': ApiCategoryCategory;
       'api::game.game': ApiGameGame;
       'api::game-category.game-category': ApiGameCategoryGameCategory;
       'api::global.global': ApiGlobalGlobal;

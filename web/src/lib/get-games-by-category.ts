@@ -3,8 +3,21 @@ import { Game } from '@/mock/games';
 
 const { STRAPI_HOST } = process.env;
 
-export function getGamesByCategory(category: string) {
-	console.log(category);
+export function getGamesByCategory(
+	category: string,
+	/* pageSize,
+	page, */ //Paginacion
+	/* : {
+	category: string;
+	 pageSize: number;
+	page: number;  //Paginacion
+} */
+) {
+	/* 	let url = `http://localhost:1337/api/games?filters[game_category][name][$contains]=${category}`;
+
+	if (page) url += `&pagination[page]=${page}`;
+    if (pageSize url += `&paginacion[pagesize]=${pageSize}`) */
+
 	return fetch(
 		`http://localhost:1337/api/games?filters[game_category][name][$contains]=${category}`,
 		{
@@ -23,6 +36,9 @@ export function getGamesByCategory(category: string) {
 			if (!data.data) {
 				throw new Error('Data not found in response');
 			}
+
+			/* 			const { meta } = data.meta; //Paginacion
+			 */
 			const formattedGames = data.data.map((game: Game) => ({
 				slug: game.slug,
 				name: game.name,
@@ -30,7 +46,9 @@ export function getGamesByCategory(category: string) {
 				image: game.image,
 			}));
 
-			console.log(formattedGames);
+			/* 			return { formattedGames, pagination: meta.pagination }; //Paginacion
+			 */
+
 			return formattedGames;
 		})
 		.catch(error => {

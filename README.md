@@ -1,3 +1,8 @@
+
+![strapi-games-web-1](https://github.com/user-attachments/assets/a6f92e93-757d-4686-929d-0c914c2a2823)
+![strapi-games-web-2](https://github.com/user-attachments/assets/6ac1ec1b-a0fb-468a-b5b9-b132e4ac4248)
+![strapi-games-web-3](https://github.com/user-attachments/assets/bb867fac-537f-4172-be2b-2e9e2a48f1fb)
+
 # Strapi Game Store
 
 Bienvenido a **Strapi Game Store**, una aplicación web diseñada para gestionar contenido relacionado con videojuegos utilizando Strapi como backend. Este proyecto permite a los usuarios explorar diversas categorías de juegos, leer artículos y conocer más sobre los autores.

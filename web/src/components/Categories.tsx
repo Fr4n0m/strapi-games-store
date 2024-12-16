@@ -1,7 +1,10 @@
-import {
+/* import {
 	getCategories,
 	getCategoriesComponentInfo,
-} from '@/lib/get-categories';
+} from '@/lib/get-categories'; */
+
+/* import { getCategoriesComponentInfo } from '@/lib/get-categories';
+ */
 import { defaultCategories } from '@/mock/categories';
 import Link from 'next/link';
 
@@ -12,12 +15,17 @@ export interface Category {
 }
 
 const Categories = async () => {
-	const strapiCategories = await getCategories();
+	/* const strapiCategories = await getCategories(); */
 
-	const { title } = await getCategoriesComponentInfo();
+	/* 	const { title } = await getCategoriesComponentInfo();
+	 */
 
-	const categories =
-		strapiCategories.length > 0 ? strapiCategories : defaultCategories;
+	const title = 'Categories';
+
+	/* const categories =
+		strapiCategories.length > 0 ? strapiCategories : defaultCategories; */
+
+	const categories = defaultCategories;
 
 	return (
 		<div

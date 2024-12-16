@@ -3,14 +3,15 @@ import { useState } from 'react';
 
 interface GameCardProps {
 	game: Game;
+	gradient?: string[];
 }
 
-const GameCard: React.FC<GameCardProps> = ({ game }) => {
+const GameCard: React.FC<GameCardProps> = ({ game, gradient }) => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
 		<div
-			className={`bg-gradient-to-br group from-blue-300 to-blue-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${isHovered ? 'h-auto' : 'h-48'}`}
+			className={`bg-gradient-to-br group ${gradient?.join(' ')} rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${isHovered ? 'h-auto' : 'h-48'}`}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>

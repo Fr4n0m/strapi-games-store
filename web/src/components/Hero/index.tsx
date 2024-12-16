@@ -1,15 +1,19 @@
 import React from 'react';
 import Carousel from '../Carousel';
 import './button.css';
-import { getHomeInfo } from '@/lib/get-home-info';
-import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+/* import { getHomeInfo } from '@/lib/get-home-info';
+ */ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
 const Hero = async () => {
-	const {
+	/* const {
 		title = 'Bienvenido a la Tienda',
 		description = 'Descubre los últimos lanzamientos y las mejores ofertas.',
 		buttonText = 'Juegos',
-	} = await getHomeInfo();
+	} = await getHomeInfo(); */
+
+	const title = 'Welcome to the store',
+		description = 'Discover the latest releases and the best offers.',
+		buttonText = 'Games';
 
 	return (
 		<div className='relative'>
@@ -25,7 +29,8 @@ const Hero = async () => {
 							{title}
 						</h1>
 						<div className='text-md md:text-lg px-10 md:px-0 mb-6'>
-							<BlocksRenderer content={description} />
+							{/* <BlocksRenderer content={description} /> */}
+							{description}
 						</div>
 						<a href='/#categories'>
 							<button className='font-archivo-black uppercase'>

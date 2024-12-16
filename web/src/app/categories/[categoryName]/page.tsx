@@ -2,15 +2,31 @@
 
 import { useEffect, useState } from 'react';
 import GameCard from '@/components/GameCard';
-import { getGamesByCategory } from '@/lib/get-games-by-category';
-import { defaultGames, Game } from '@/mock/games';
+/* import { getGamesByCategory } from '@/lib/get-games-by-category';
+ */ import { defaultGames, Game } from '@/mock/games';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import Loading from '@/components/Loading';
+import { defaultCategories } from '@/mock/categories';
 
 const PAGE_SIZE = 1;
 
-const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
+interface CategoryPageProps {
+	params: {
+		categoryName: string;
+	};
+}
+
+const gradientByCategory: Record<string, string[]> = {
+	Action: ['from-blue-400', 'to-blue-700'],
+	Adventure: ['from-purple-400', 'to-purple-700'],
+	Sports: ['from-green-400', 'to-green-700'],
+	Strategy: ['from-yellow-400', 'to-yellow-700'],
+	RPG: ['from-red-400', 'to-red-700'],
+	Simulation: ['from-indigo-400', 'to-indigo-700'],
+};
+
+const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 	const [games, setGames] = useState<Game[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -18,6 +34,38 @@ const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
 	const { categoryName } = params;
 
 	useEffect(() => {
+		const fetchGames = () => {
+			setLoading(true);
+			setError(null);
+
+			try {
+				const filteredGames = defaultGames.filter(
+					game =>
+						game.category.toLowerCase() ===
+						categoryName.toLowerCase(),
+				);
+
+				if (filteredGames.length === 0) {
+					throw new Error(
+						`No se encontraron juegos en la categoría "${categoryName}".`,
+					);
+				}
+
+				setGames(filteredGames);
+			} catch (error) {
+				console.error('Error fetching games:', error);
+				setError((error as Error).message);
+				setGames([]);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchGames();
+	}, [categoryName]);
+
+	/* 	Para usar Stripe
+	 */ /* useEffect(() => {
 		const fetchGames = async () => {
 			setLoading(true);
 			setError(null);
@@ -36,7 +84,7 @@ const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
 		};
 
 		fetchGames();
-	}, [categoryName]);
+	}, [categoryName]); */
 
 	return (
 		<div className='flex flex-col min-h-screen'>
@@ -60,10 +108,10 @@ const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
 						/>
 					</svg>
 				</div>
-				<p>Volver a Inicio</p>
+				<p>Back</p>
 			</Link>
 
-			<div className='flex-grow p-10 mt-10 md:p-20'>
+			<div className='flex-grow p-10 mt-10 md:mt-0 md:p-20'>
 				<h2 className='text-3xl font-bold mb-6 font-archivo-black'>
 					{categoryName}
 				</h2>
@@ -73,9 +121,23 @@ const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
 					<p className='text-red-500'>{error}</p>
 				) : (
 					<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-						{games.map((game: Game) => (
-							<GameCard key={game.slug} game={game} />
-						))}
+						{games.map((game: Game) => {
+							const categoryData = defaultCategories.find(
+								cat => cat.name === game.category,
+							);
+							return (
+								<GameCard
+									key={game.slug}
+									game={game}
+									gradient={
+										gradientByCategory[game.category] || [
+											'from-gray-400',
+											'to-gray-700',
+										]
+									}
+								/>
+							);
+						})}
 					</div>
 				)}
 			</div>

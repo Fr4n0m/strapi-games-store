@@ -5,11 +5,11 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 import { Game } from '@/mock/games';
-import { getGames } from '@/lib/get-games';
+/* import { getGames } from '@/lib/get-games'; */
 import { defaultGames } from '@/mock/games';
 
 const Carousel = () => {
-	const [games, setGames] = useState<Game[]>([]);
+	/* const [games, setGames] = useState<Game[]>([]);
 
 	useEffect(() => {
 		const fetchGames = async () => {
@@ -23,7 +23,9 @@ const Carousel = () => {
 		};
 
 		fetchGames();
-	}, []);
+	}, []); */
+
+	const games = defaultGames;
 
 	const items = games.map((game: Game) => (
 		<div

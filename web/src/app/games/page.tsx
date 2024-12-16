@@ -11,12 +11,6 @@ import { defaultCategories } from '@/mock/categories';
 
 const PAGE_SIZE = 1;
 
-interface CategoryPageProps {
-	params: {
-		categoryName: string;
-	};
-}
-
 const gradientByCategory: Record<string, string[]> = {
 	Action: ['from-blue-400', 'to-blue-700'],
 	Adventure: ['from-orange-400', 'to-orange-700'],
@@ -26,12 +20,10 @@ const gradientByCategory: Record<string, string[]> = {
 	Simulation: ['from-indigo-400', 'to-indigo-700'],
 };
 
-const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
+const GamesPage = () => {
 	const [games, setGames] = useState<Game[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-
-	const { categoryName } = params;
 
 	useEffect(() => {
 		const fetchGames = () => {
@@ -39,19 +31,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 			setError(null);
 
 			try {
-				const filteredGames = defaultGames.filter(
-					game =>
-						game.category.toLowerCase() ===
-						categoryName.toLowerCase(),
-				);
-
-				if (filteredGames.length === 0) {
-					throw new Error(
-						`No se encontraron juegos en la categoría "${categoryName}".`,
-					);
-				}
-
-				setGames(filteredGames);
+				setGames(defaultGames);
 			} catch (error) {
 				console.error('Error fetching games:', error);
 				setError((error as Error).message);
@@ -62,29 +42,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 		};
 
 		fetchGames();
-	}, [categoryName]);
-
-	/* 	Para usar Strapi
-	 */ /* useEffect(() => {
-		const fetchGames = async () => {
-			setLoading(true);
-			setError(null);
-			try {
-				const fetchedGames = await getGamesByCategory(categoryName);
-				setGames(fetchedGames);
-			} catch (error) {
-				console.error('Error fetching games:', error);
-				setError(
-					'No se pudieron cargar los juegos, mostrando los juegos predeterminados.',
-				);
-				setGames(defaultGames);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchGames();
-	}, [categoryName]); */
+	}, []);
 
 	return (
 		<div className='flex flex-col min-h-screen'>
@@ -113,7 +71,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 
 			<div className='flex-grow p-10 mt-10 md:mt-0 md:p-20'>
 				<h2 className='text-3xl font-bold mb-6 font-archivo-black'>
-					{categoryName}
+					All Games
 				</h2>
 				{loading ? (
 					<Loading />
@@ -147,4 +105,4 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 	);
 };
 
-export default CategoryPage;
+export default GamesPage;

@@ -7,6 +7,7 @@
  */
 import { defaultCategories } from '@/mock/categories';
 import Link from 'next/link';
+import '@/components/Hero/button.css';
 
 export interface Category {
 	slug: number;
@@ -20,7 +21,8 @@ const Categories = async () => {
 	/* 	const { title } = await getCategoriesComponentInfo();
 	 */
 
-	const title = 'Categories';
+	const title = 'Categories',
+		buttonText = 'All Games';
 
 	/* const categories =
 		strapiCategories.length > 0 ? strapiCategories : defaultCategories; */
@@ -30,12 +32,12 @@ const Categories = async () => {
 	return (
 		<div
 			id='categories'
-			className='px-10 py-24 flex flex-col justify-center items-center'
+			className='px-10 py-14 flex flex-col justify-center items-center'
 		>
-			<h2 className='text-5xl font-bold text-center mb-20 font-archivo-black'>
+			<h2 className='text-5xl font-bold text-center mb-12 font-archivo-black'>
 				{title}
 			</h2>
-			<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+			<div className='grid grid-cols-2 mb-12 sm:grid-cols-2 md:grid-cols-3 gap-4'>
 				{categories.map((category: Category) => (
 					<Link
 						key={category.slug}
@@ -59,6 +61,19 @@ const Categories = async () => {
 					</Link>
 				))}
 			</div>
+			<a href='/games'>
+				<button className='font-archivo-black uppercase'>
+					{buttonText}
+					<div id='clip'>
+						<div id='leftTop' className='corner'></div>
+						<div id='rightBottom' className='corner'></div>
+						<div id='rightTop' className='corner'></div>
+						<div id='leftBottom' className='corner'></div>
+					</div>
+					<span id='rightArrow' className='arrow'></span>
+					<span id='leftArrow' className='arrow'></span>
+				</button>
+			</a>
 		</div>
 	);
 };

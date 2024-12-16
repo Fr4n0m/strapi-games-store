@@ -64,7 +64,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ params }) => {
 		fetchGames();
 	}, [categoryName]);
 
-	/* 	Para usar Stripe
+	/* 	Para usar Strapi
 	 */ /* useEffect(() => {
 		const fetchGames = async () => {
 			setLoading(true);

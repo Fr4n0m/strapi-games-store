@@ -84,7 +84,7 @@ export const defaultGames: Game[] = [
 		slug: 10,
 		name: 'Assetto Corsa Ultimate Edition',
 		description:
-			'Ya está aquí la versión más completa del aclamado simulador de conducción. Incluye todos los contenidos descargables y todas las actualizaciones que se han lanzado (Dream Pack 1-2-3, Tripl3Pack, Porsche Pack 1-2-3, Red Pack, Ready To Race, Japanese Pack y Ferrari 70th Anniversary DLCs).',
+			'The most complete version of the acclaimed driving simulator is here. It includes all downloadable content and every released update (Dream Pack 1-2-3, Tripl3Pack, Porsche Pack 1-2-3, Red Pack, Ready To Race, Japanese Pack, and Ferrari 70th Anniversary DLCs).',
 		image: 'https://gaming-cdn.com/images/products/3098/616x353/assetto-corsa-ultimate-edition-ultimate-edition-pc-juego-steam-cover.jpg?v=1715265138',
 		category: 'Simulation',
 	},

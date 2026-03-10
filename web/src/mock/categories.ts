@@ -2,7 +2,7 @@ export const defaultCategories = [
 	{
 		slug: 1,
 		name: 'Action',
-		image: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2017/12/mejores-juegos-accion-aventura-2018.jpg?tf=3840x',
+		image: 'https://gaming-cdn.com/images/products/7678/616x353/black-myth-wukong-pc-juego-steam-europe-us-canada-cover.jpg?v=1728309382',
 	},
 	{
 		slug: 2,
@@ -12,17 +12,17 @@ export const defaultCategories = [
 	{
 		slug: 3,
 		name: 'Sports',
-		image: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2023/07/ea-sports-fc-24-todo-sabemos-sucesor-fifa-24-3084248.jpg?tf=3840x',
+		image: 'https://gaming-cdn.com/images/products/17237/616x353/nba-2k25-all-star-edition-all-star-edition-pc-juego-steam-europe-cover.jpg?v=1731919759',
 	},
 	{
 		slug: 4,
 		name: 'Strategy',
-		image: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2021/03/mejores-juegos-estrategia-pc-2259107.jpg?tf=3840x',
+		image: 'https://gaming-cdn.com/images/products/4479/616x353/planet-zoo-pc-juego-steam-cover.jpg?v=1717423817',
 	},
 	{
 		slug: 5,
 		name: 'RPG',
-		image: 'https://i0.wp.com/www.parapcgamers.com/wp-content/uploads/2017/01/mejores-juegos-de-rpg.jpg?resize=800%2C445&ssl=1',
+		image: 'https://gaming-cdn.com/images/products/1497/616x353/the-witcher-3-wild-hunt-game-of-the-year-edition-goty-edition-pc-juego-gog-com-cover.jpg?v=1670929985',
 	},
 	{
 		slug: 6,

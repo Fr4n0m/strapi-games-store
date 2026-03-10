@@ -1,35 +1,60 @@
-import { Game } from '@/mock/games';
+import { defaultGames, Game } from '@/mock/games';
+import { shouldUseMockData } from './data-source';
+import { getStrapiMediaUrl, query } from './strapi';
 
-export function getGames() {
-	return fetch('http://localhost:1337/api/games', {
-		headers: {
-			Authorization: `Bearer f13dd7838213607d2e66e1d9275b475db806baf8455304345bb82eb7580307d28dcb1fd2bc37f775445c8526bf12c439c94aee031d02e9fe38f3c0fc8f9b8233320c4ff2bc6ead0c1ec66eff2b37ea4622d0f68dd9ea6d661075bf0330aaf30a5db3991a12f06598eb043bb8a8d73e47486fab443682c0f9927a8ccbeebfdc53`,
-		},
-	})
-		.then(res => {
-			if (!res.ok) {
-				throw new Error(`Error: ${res.status} ${res.statusText}`);
-			}
-			return res.json();
-		})
-		.then(data => {
-			if (!data.data) {
-				throw new Error('Data not found in response');
-			}
-			const formattedGames = data.data.map((game: Game) => ({
-				slug: game.slug,
-				name: game.name,
-				description: game.description,
-				image: game.image,
-				category: game.category,
-			}));
-
-			return formattedGames;
-		})
-		.catch(error => {
-			console.error('Fetch error:', error);
-			return [];
-		});
+interface StrapiCollectionResponse<T> {
+	data: T[];
 }
 
-getGames();
+interface StrapiGame {
+	id: number;
+	attributes: {
+		name: string;
+		description: string;
+		slug?: string | number;
+		image?: {
+			data?: {
+				attributes?: {
+					url?: string;
+				};
+			};
+		};
+		game_category?: {
+			data?: {
+				attributes?: {
+					name?: string;
+				};
+			};
+		};
+	};
+}
+
+export async function getGames(): Promise<Game[]> {
+	if (shouldUseMockData()) {
+		return defaultGames;
+	}
+
+	try {
+		const response = await query<StrapiCollectionResponse<StrapiGame>>(
+			'games?populate[image][fields][0]=url&populate[game_category][fields][0]=name',
+		);
+
+		return response.data.map(game => {
+			const imageUrl =
+				getStrapiMediaUrl(game.attributes.image?.data?.attributes?.url) ??
+				'/assets/background-hero.webp';
+
+			return {
+				slug: Number(game.attributes.slug ?? game.id),
+				name: game.attributes.name,
+				description: game.attributes.description,
+				image: imageUrl,
+				category: game.attributes.game_category?.data?.attributes?.name ?? 'Action',
+			};
+		});
+	} catch (error) {
+		console.warn('Falling back to mock games:', error);
+		return defaultGames;
+	}
+}
+

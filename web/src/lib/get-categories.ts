@@ -1,35 +1,89 @@
-import { query } from './strapi';
-import { Category } from '@/components/Categories';
-/* 
-export function getCategories() {
-	return query('game-categories').then(res => {
-		const data = res.data;
+import { defaultCategories } from '@/mock/categories';
+import { shouldUseMockData } from './data-source';
+import { getStrapiMediaUrl, query } from './strapi';
 
-		const formattedCategories = data.map((category: Category) => ({
-			slug: category.slug,
-			name: category.name,
-			image: category.image,
+export interface Category {
+	slug: number;
+	name: string;
+	image: string;
+}
+
+interface StrapiCollectionResponse<T> {
+	data: T[];
+}
+
+interface StrapiItemResponse<T> {
+	data: T;
+}
+
+interface StrapiCategory {
+	id: number;
+	attributes: {
+		name: string;
+		slug?: string | number;
+		image?: {
+			data?: {
+				attributes?: {
+					url?: string;
+				};
+			};
+		};
+	};
+}
+
+interface StrapiCategoryComponent {
+	attributes?: {
+		title?: string;
+		buttonText?: string;
+	};
+}
+
+export async function getCategories(): Promise<Category[]> {
+	if (shouldUseMockData()) {
+		return defaultCategories;
+	}
+
+	try {
+		const response = await query<StrapiCollectionResponse<StrapiCategory>>(
+			'game-categories?populate[image][fields][0]=url',
+		);
+
+		return response.data.map(category => ({
+			slug: Number(category.attributes.slug ?? category.id),
+			name: category.attributes.name,
+			image:
+				getStrapiMediaUrl(category.attributes.image?.data?.attributes?.url) ??
+				'/assets/background-hero.webp',
 		}));
-
-		return formattedCategories;
-	});
-}
-*/ //Comment for make it run the vercel demo but if you want to use strapi uncomment this
-
-export function getCategoriesComponentInfo() {
-	return query('Category').then(res => {
-		return res.data;
-	});
+	} catch (error) {
+		console.warn('Falling back to mock categories:', error);
+		return defaultCategories;
+	}
 }
 
-/*
-    export function getCategories() {
-        return query("game-categories?fields[0]=slug&fields[1]=description&populate[image][fields][0]=url").then((res) => {
-            return res.data.map(category => {
-            const {name, slug, image: rawImage} = category
-            const image = `${STRAPI_HOST}/${rawImage.url}`
-            return {name, slug, image}
-            })
-        })
+export async function getCategoriesComponentInfo() {
+	if (shouldUseMockData()) {
+		return {
+			title: 'Categories',
+			buttonText: 'All Games',
+		};
+	}
 
-*/
+	try {
+		const response = await query<StrapiItemResponse<StrapiCategoryComponent>>(
+			'category',
+		);
+		const data = response.data?.attributes;
+
+		return {
+			title: data?.title ?? 'Categories',
+			buttonText: data?.buttonText ?? 'All Games',
+		};
+	} catch (error) {
+		console.warn('Falling back to default category component copy:', error);
+		return {
+			title: 'Categories',
+			buttonText: 'All Games',
+		};
+	}
+}

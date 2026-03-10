@@ -12,24 +12,21 @@ const geistMono = localFont({
 	weight: '100 900',
 });
 
+export const metadata = {
+	title: 'Store - Strapi',
+	description: 'Strapi - Next.js',
+	icons: {
+		icon: '/favicon.svg',
+	},
+};
+
 export default function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='es'>
-			<head>
-				<meta
-					name='viewport'
-					content='width=device-width, initial-scale=1'
-				/>
-				<link rel='icon' href='/favicon.svg' />
-				<link
-					href='https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap'
-					rel='stylesheet'
-				/>
-			</head>
+		<html lang='en'>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>

@@ -1,60 +1,48 @@
-import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import Carousel from '../Carousel';
 import './button.css';
-/* import { getHomeInfo } from '@/lib/get-home-info';
- */ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import { getHomeInfo } from '@/lib/get-home-info';
 
 const Hero = async () => {
-	/* const {
-		title = 'Bienvenido a la Tienda',
-		description = 'Descubre los últimos lanzamientos y las mejores ofertas.',
-		buttonText = 'Juegos',
-	} = await getHomeInfo(); */
-
-	const title = 'Welcome to the store',
-		description = 'Discover the latest releases and the best offers.',
-		buttonText = 'Games';
+	const { title, description, buttonText, image } = await getHomeInfo();
 
 	return (
 		<div className='relative'>
-			<div
-				className='bg-cover bg-center h-screen'
-				style={{
-					backgroundImage: 'url(/assets/background-hero.jpg)',
-				}}
-			>
-				<div className='flex items-start justify-center h-full bg-black bg-opacity-50'>
-					<div className='flex flex-col mt-24 md:mt-32 justify-center items-center text-center text-white px-4'>
-						<h1 className='text-4xl md:text-6xl font-bold mb-4 font-archivo-black'>
+			<div className='relative min-h-screen'>
+				<Image
+					src={image}
+					alt='Featured games banner'
+					fill
+					priority
+					sizes='100vw'
+					className='object-cover object-center z-0'
+				/>
+				<div className='relative z-10 min-h-screen bg-black/55 px-4 pt-20 pb-10 md:pt-24 md:pb-14'>
+					<div className='mx-auto flex max-w-6xl flex-col items-center text-center text-white'>
+						<h1 className='text-4xl md:text-6xl lg:text-7xl font-bold mb-4 font-archivo-black uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#2658ac] to-[#27c39f] drop-shadow-[0_0_16px_rgba(38,88,172,0.55)]'>
 							{title}
 						</h1>
-						<div className='text-md md:text-lg px-10 md:px-0 mb-6'>
-							{/* <BlocksRenderer content={description} /> */}
+						<div className='mb-6 max-w-2xl px-4 md:px-0 text-base md:text-xl font-medium tracking-wide text-[#ddebf0] leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.75)]'>
 							{description}
 						</div>
-						<a href='/#categories'>
+						<Link href='/#categories'>
 							<button className='font-archivo-black uppercase'>
 								{buttonText}
 								<div id='clip'>
 									<div id='leftTop' className='corner'></div>
-									<div
-										id='rightBottom'
-										className='corner'
-									></div>
+									<div id='rightBottom' className='corner'></div>
 									<div id='rightTop' className='corner'></div>
-									<div
-										id='leftBottom'
-										className='corner'
-									></div>
+									<div id='leftBottom' className='corner'></div>
 								</div>
 								<span id='rightArrow' className='arrow'></span>
 								<span id='leftArrow' className='arrow'></span>
 							</button>
-						</a>
+						</Link>
+						<div className='mt-8 w-full max-w-4xl rounded-xl border border-[#2761c3]/45 bg-slate-950/45 p-2 shadow-[0_0_30px_rgba(39,97,195,0.22)]'>
+							<Carousel />
+						</div>
 					</div>
-				</div>
-				<div className='absolute bottom-10 left-4 md:left-96 right-4 md:right-96 rounded-lg hover:rounded-lg transition-all'>
-					<Carousel />
 				</div>
 			</div>
 		</div>

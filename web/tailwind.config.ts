@@ -13,7 +13,7 @@ const config: Config = {
 				foreground: 'var(--foreground)',
 			},
 			fontFamily: {
-				'archivo-black': ['"Archivo Black"', 'sans-serif'],
+				'archivo-black': ['var(--font-geist-sans)', 'sans-serif'],
 			},
 		},
 	},

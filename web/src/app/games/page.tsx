@@ -2,14 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import GameCard from '@/components/GameCard';
-/* import { getGamesByCategory } from '@/lib/get-games-by-category';
- */ import { defaultGames, Game } from '@/mock/games';
+import { defaultGames, Game } from '@/mock/games';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import Loading from '@/components/Loading';
-import { defaultCategories } from '@/mock/categories';
-
-const PAGE_SIZE = 1;
 
 const gradientByCategory: Record<string, string[]> = {
 	Action: ['from-blue-400', 'to-blue-700'],
@@ -79,23 +75,18 @@ const GamesPage = () => {
 					<p className='text-red-500'>{error}</p>
 				) : (
 					<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-						{games.map((game: Game) => {
-							const categoryData = defaultCategories.find(
-								cat => cat.name === game.category,
-							);
-							return (
-								<GameCard
-									key={game.slug}
-									game={game}
-									gradient={
-										gradientByCategory[game.category] || [
-											'from-gray-400',
-											'to-gray-700',
-										]
-									}
-								/>
-							);
-						})}
+						{games.map((game: Game) => (
+							<GameCard
+								key={game.slug}
+								game={game}
+								gradient={
+									gradientByCategory[game.category] || [
+										'from-gray-400',
+										'to-gray-700',
+									]
+								}
+							/>
+						))}
 					</div>
 				)}
 			</div>

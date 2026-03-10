@@ -13,8 +13,6 @@ A modern video game storefront built with **Next.js + Strapi**.
 
 ---
 
-## Espanol
-
 ### Resumen
 
 Strapi Games Store es una web de videojuegos con una UI visual, categorias, listado de juegos y paginas por categoria.
